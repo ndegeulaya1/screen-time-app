@@ -2,6 +2,7 @@
   "expo": {
     "name": "screen",
     "slug": "screen",
+    "owner": "bright_dev",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -51,6 +52,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "1f3046c4-e5ed-42e6-ada0-55df9239597b"
+      }
     }
   }
 }
