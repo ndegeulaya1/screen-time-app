@@ -1,18 +1,40 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
+import { useEffect } from 'react';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { useHydrateStores } from '@/hooks/useHydrateStores';
+import { useSyncNativeConfig } from '@/hooks/useSyncNativeConfig';
+import { useTheme } from '@/hooks/use-theme';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
+  const ready = useHydrateStores();
+  const theme = useTheme();
+  useSyncNativeConfig(ready);
+
+  useEffect(() => {
+    SplashScreen.hideAsync();
+  }, []);
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: theme.background },
+        headerStyle: { backgroundColor: theme.background },
+        headerTintColor: theme.text,
+        headerShadowVisible: false,
+      }}>
+      <Stack.Screen name="(app)" />
+      <Stack.Screen
+        name="poc"
+        options={{
+          headerShown: true,
+          title: 'Developer POC',
+          presentation: 'modal',
+        }}
+      />
+    </Stack>
   );
 }

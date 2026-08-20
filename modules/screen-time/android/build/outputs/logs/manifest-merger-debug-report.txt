@@ -1,0 +1,160 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:1:1-74:12
+INJECTED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:1:1-74:12
+	package
+		INJECTED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:2:3-49
+	xmlns:android
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.PACKAGE_USAGE_STATS
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:4:3-6:43
+	tools:ignore
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:6:5-40
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:5:5-58
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:7:3-76
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:7:20-73
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:8:3-75
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:8:20-72
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:9:3-75
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:9:20-72
+uses-permission#android.permission.FOREGROUND_SERVICE_SPECIAL_USE
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:10:3-87
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:10:20-84
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:11:3-79
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:11:20-76
+uses-permission#android.permission.SCHEDULE_EXACT_ALARM
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:12:3-77
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:12:20-74
+uses-permission#android.permission.USE_EXACT_ALARM
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:13:3-72
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:13:20-69
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:14:3-66
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:14:20-63
+uses-permission#android.permission.VIBRATE
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:15:3-64
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:15:20-61
+queries
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:17:3-22:13
+intent#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:18:5-21:14
+action#android.intent.action.MAIN
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:19:7-59
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:19:15-56
+category#android.intent.category.LAUNCHER
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:20:7-67
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:20:17-64
+application
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:24:3-73:17
+activity#expo.modules.screentime.BlockOverlayActivity
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:25:5-35:52
+	android:turnScreenOn
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:34:7-34
+	android:excludeFromRecents
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:27:7-40
+	android:showWhenLocked
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:31:7-36
+	android:launchMode
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:29:7-42
+	android:windowSoftInputMode
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:35:7-49
+	android:exported
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:28:7-31
+	android:showOnLockScreen
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:30:7-38
+	android:theme
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:33:7-69
+	android:taskAffinity
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:32:7-30
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:26:7-43
+service#expo.modules.screentime.RestrictionMonitorService
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:37:5-44:15
+	android:exported
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:39:7-31
+	android:foregroundServiceType
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:40:7-49
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:38:7-48
+property#android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:41:7-43:112
+	android:value
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:43:9-109
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:42:9-68
+receiver#expo.modules.screentime.SleepAlarmReceiver
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:46:5-48:34
+	android:exported
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:48:7-31
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:47:7-41
+receiver#expo.modules.screentime.BootReceiver
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:50:5-59:16
+	android:enabled
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:52:7-29
+	android:exported
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:53:7-30
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:51:7-35
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.LOCKED_BOOT_COMPLETED+action:name:android.intent.action.QUICKBOOT_POWERON
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:54:7-58:23
+action#android.intent.action.BOOT_COMPLETED
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:55:9-71
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:55:17-68
+action#android.intent.action.LOCKED_BOOT_COMPLETED
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:56:9-78
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:56:17-75
+action#android.intent.action.QUICKBOOT_POWERON
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:57:9-74
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:57:17-71
+receiver#expo.modules.screentime.ScreenTimeDeviceAdminReceiver
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:61:5-72:16
+	android:exported
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:64:7-30
+	android:permission
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:65:7-64
+	android:description
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:63:7-73
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:62:7-52
+meta-data#android.app.device_admin
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:66:7-68:60
+	android:resource
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:68:9-57
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:67:9-48
+intent-filter#action:name:android.app.action.DEVICE_ADMIN_ENABLED
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:69:7-71:23
+action#android.app.action.DEVICE_ADMIN_ENABLED
+ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:70:9-74
+	android:name
+		ADDED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml:70:17-71
+uses-sdk
+INJECTED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml
+INJECTED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/bright/myapps/screen/modules/screen-time/android/src/main/AndroidManifest.xml

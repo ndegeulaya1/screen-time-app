@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="screen_time_device_admin_description">Allows Screen Time to lock the device at bedtime when Device Admin is enabled.</string>
+</resources>

@@ -1,0 +1,4 @@
+R_DEF: Internal format may change without notice
+local
+string screen_time_device_admin_description
+xml screen_time_device_admin
