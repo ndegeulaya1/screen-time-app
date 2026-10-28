@@ -1,2 +1,0 @@
-int string screen_time_device_admin_description 0x0
-int xml screen_time_device_admin 0x0
