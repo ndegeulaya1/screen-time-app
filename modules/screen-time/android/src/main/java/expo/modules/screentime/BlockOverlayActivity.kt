@@ -14,8 +14,12 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import java.lang.ref.WeakReference
 
 class BlockOverlayActivity : Activity() {
+  @Volatile
+  private var mode: String = MODE_APP
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
@@ -24,7 +28,8 @@ class BlockOverlayActivity : Activity() {
       setTurnScreenOn(true)
     }
 
-    val mode = intent.getStringExtra(EXTRA_MODE) ?: MODE_APP
+    mode = intent.getStringExtra(EXTRA_MODE) ?: MODE_APP
+    current = WeakReference(this)
     val title = intent.getStringExtra(EXTRA_TITLE) ?: "Time's up"
     val message = intent.getStringExtra(EXTRA_MESSAGE) ?: "Come back tomorrow."
 
@@ -55,9 +60,18 @@ class BlockOverlayActivity : Activity() {
 
     if (mode == MODE_SLEEP) {
       addSleepSkipControls(layout)
+    } else if (mode == MODE_LOCK) {
+      addLockDismissControls(layout)
     }
 
     setContentView(layout)
+  }
+
+  override fun onDestroy() {
+    if (current?.get() === this) {
+      current = null
+    }
+    super.onDestroy()
   }
 
   private fun addSleepSkipControls(layout: LinearLayout) {
@@ -138,6 +152,22 @@ class BlockOverlayActivity : Activity() {
     layout.addView(skipForm)
   }
 
+  private fun addLockDismissControls(layout: LinearLayout) {
+    val unlockWrap = LinearLayout(this).apply {
+      setPadding(0, dp(32), 0, 0)
+    }
+    unlockWrap.addView(
+      actionButton("Unlock", filled = true) {
+        finish()
+      },
+      LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+      ),
+    )
+    layout.addView(unlockWrap)
+  }
+
   private fun labeledField(label: String, field: EditText): LinearLayout {
     return LinearLayout(this).apply {
       orientation = LinearLayout.VERTICAL
@@ -210,5 +240,21 @@ class BlockOverlayActivity : Activity() {
     const val MODE_APP = "app"
     const val MODE_SLEEP = "sleep"
     const val MODE_LOCK = "lock"
+
+    @Volatile
+    private var current: WeakReference<BlockOverlayActivity>? = null
+
+    fun dismissSleepOverlay() {
+      val activity = current?.get() ?: return
+      val currentMode = activity.mode
+      if (currentMode != MODE_SLEEP) {
+        return
+      }
+      activity.runOnUiThread {
+        if (!activity.isFinishing) {
+          activity.finish()
+        }
+      }
+    }
   }
 }

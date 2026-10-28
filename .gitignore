@@ -38,6 +38,17 @@ yarn-error.*
 
 example
 
-# generated native folders
+# generated native folders (root level)
 /ios
 /android
+
+# Native build/cache output anywhere in the repo (e.g. modules/)
+**/android/build/
+**/.gradle/
+**/.cxx/
+**/ios/build/
+**/ios/Pods/
+**/ios/DerivedData/
+**/*.xcworkspace/xcuserdata/
+**/*.xcodeproj/xcuserdata/
+**/*.xcodeproj/project.xcworkspace/xcshareddata/

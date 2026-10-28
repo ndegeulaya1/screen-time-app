@@ -96,7 +96,27 @@ object ScreenTimeStore {
     if (isSleepSkipped(context, nowMs)) {
       return false
     }
-    return isSleepActive(context) || isInSleepWindow(context, nowMs)
+    return isInSleepWindow(context, nowMs)
+  }
+
+  fun rollExpiredSleepWindow(context: Context, nowMs: Long = System.currentTimeMillis()): Boolean {
+    var start = getSleepStartMs(context)
+    var end = getSleepEndMs(context)
+    if (start <= 0L || end <= 0L || nowMs < end) {
+      return false
+    }
+
+    val dayMs = 24L * 60L * 60L * 1000L
+    while (nowMs >= end) {
+      start += dayMs
+      end += dayMs
+    }
+
+    setSleepSchedule(context, start, end)
+    setSleepActive(context, false)
+    clearSleepSkip(context)
+    clearSleepLockState(context)
+    return true
   }
 
   fun didLockThisSleepWindow(context: Context) =

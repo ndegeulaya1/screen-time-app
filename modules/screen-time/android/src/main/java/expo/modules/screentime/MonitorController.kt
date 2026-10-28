@@ -36,6 +36,10 @@ object MonitorController {
     appContext.stopService(Intent(appContext, RestrictionMonitorService::class.java))
   }
 
+  fun dismissSleepOverlay() {
+    BlockOverlayActivity.dismissSleepOverlay()
+  }
+
   fun showOverlay(context: Context, mode: String, title: String, message: String) {
     val intent = Intent(context.applicationContext, BlockOverlayActivity::class.java).apply {
       addFlags(

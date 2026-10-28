@@ -29,23 +29,44 @@ object SleepScheduler {
       throw ScreenTimeNativeException("Sleep end must be after sleep start.")
     }
     ScreenTimeStore.setSleepSchedule(context, startMs, endMs)
-    ScreenTimeStore.setSleepActive(context, ScreenTimeStore.isInSleepWindow(context))
-    scheduleAlarm(context, ACTION_SLEEP_START, REQ_SLEEP_START, startMs)
-    scheduleAlarm(context, ACTION_SLEEP_END, REQ_SLEEP_END, endMs)
-    MonitorController.start(context)
+    ScreenTimeStore.rollExpiredSleepWindow(context)
+    syncAlarmsAndOverlay(context)
   }
 
   fun cancelSleep(context: Context) {
     cancelAlarm(context, ACTION_SLEEP_START, REQ_SLEEP_START)
     cancelAlarm(context, ACTION_SLEEP_END, REQ_SLEEP_END)
     ScreenTimeStore.clearSleepSchedule(context)
+    MonitorController.dismissSleepOverlay()
     MonitorController.stopIfIdle(context)
   }
 
   fun restoreAfterBoot(context: Context) {
+    ScreenTimeStore.rollExpiredSleepWindow(context)
+    syncAlarmsAndOverlay(context)
+  }
+
+  fun advanceIfSleepEnded(context: Context) {
+    if (!ScreenTimeStore.rollExpiredSleepWindow(context)) {
+      return
+    }
+    NotificationHelper.showEvent(
+      context,
+      "Sleep ended",
+      "Sleep restriction has been lifted.",
+    )
+    syncAlarmsAndOverlay(context)
+  }
+
+  private fun syncAlarmsAndOverlay(context: Context) {
+    val now = System.currentTimeMillis()
     val start = ScreenTimeStore.getSleepStartMs(context)
     val end = ScreenTimeStore.getSleepEndMs(context)
-    val now = System.currentTimeMillis()
+    val inWindow = ScreenTimeStore.isInSleepWindow(context, now)
+
+    ScreenTimeStore.setSleepActive(context, inWindow)
+    cancelAlarm(context, ACTION_SLEEP_START, REQ_SLEEP_START)
+    cancelAlarm(context, ACTION_SLEEP_END, REQ_SLEEP_END)
 
     if (start > now) {
       scheduleAlarm(context, ACTION_SLEEP_START, REQ_SLEEP_START, start)
@@ -54,15 +75,16 @@ object SleepScheduler {
       scheduleAlarm(context, ACTION_SLEEP_END, REQ_SLEEP_END, end)
     }
 
-    if (ScreenTimeStore.isInSleepWindow(context, now)) {
-      ScreenTimeStore.setSleepActive(context, true)
-      if (!ScreenTimeStore.isSleepSkipped(context, now)) {
-        DeviceLockHelper.enforceSleepLock(context)
-      }
+    if (inWindow && !ScreenTimeStore.isSleepSkipped(context, now)) {
+      MonitorController.start(context)
+      return
     }
 
+    MonitorController.dismissSleepOverlay()
     if (ScreenTimeStore.shouldMonitor(context)) {
       MonitorController.start(context)
+    } else {
+      MonitorController.stopIfIdle(context)
     }
   }
 
@@ -122,15 +144,7 @@ class SleepAlarmReceiver : BroadcastReceiver() {
         }
       }
       SleepScheduler.ACTION_SLEEP_END -> {
-        ScreenTimeStore.setSleepActive(context, false)
-        ScreenTimeStore.clearSleepSkip(context)
-        ScreenTimeStore.clearSleepLockState(context)
-        NotificationHelper.showEvent(
-          context,
-          "Sleep ended",
-          "Sleep restriction has been lifted.",
-        )
-        MonitorController.stopIfIdle(context)
+        SleepScheduler.advanceIfSleepEnded(context)
       }
       SleepScheduler.ACTION_TEST_NOTIFICATION -> {
         NotificationHelper.showEvent(
