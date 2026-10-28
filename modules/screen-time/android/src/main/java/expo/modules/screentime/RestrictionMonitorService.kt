@@ -61,6 +61,7 @@ class RestrictionMonitorService : Service() {
 
   private fun tickOnce() {
     val now = System.currentTimeMillis()
+    SleepScheduler.advanceIfSleepEnded(this)
     if (ScreenTimeStore.isInSleepWindow(this, now) && !ScreenTimeStore.isSleepActive(this)) {
       ScreenTimeStore.setSleepActive(this, true)
       if (!ScreenTimeStore.isSleepSkipped(this, now)) {
@@ -101,6 +102,8 @@ class RestrictionMonitorService : Service() {
       DeviceLockHelper.enforceSleepLock(this)
       return
     }
+
+    MonitorController.dismissSleepOverlay()
 
     val foreground = UsageStatsHelper.getForegroundPackage(this) ?: return
     if (foreground == packageName) {

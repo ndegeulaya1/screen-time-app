@@ -14,8 +14,11 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import java.lang.ref.WeakReference
 
 class BlockOverlayActivity : Activity() {
+  private var mode: String = MODE_APP
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
@@ -24,7 +27,8 @@ class BlockOverlayActivity : Activity() {
       setTurnScreenOn(true)
     }
 
-    val mode = intent.getStringExtra(EXTRA_MODE) ?: MODE_APP
+    mode = intent.getStringExtra(EXTRA_MODE) ?: MODE_APP
+    current = WeakReference(this)
     val title = intent.getStringExtra(EXTRA_TITLE) ?: "Time's up"
     val message = intent.getStringExtra(EXTRA_MESSAGE) ?: "Come back tomorrow."
 
@@ -58,6 +62,13 @@ class BlockOverlayActivity : Activity() {
     }
 
     setContentView(layout)
+  }
+
+  override fun onDestroy() {
+    if (current?.get() === this) {
+      current = null
+    }
+    super.onDestroy()
   }
 
   private fun addSleepSkipControls(layout: LinearLayout) {
@@ -210,5 +221,20 @@ class BlockOverlayActivity : Activity() {
     const val MODE_APP = "app"
     const val MODE_SLEEP = "sleep"
     const val MODE_LOCK = "lock"
+
+    @Volatile
+    private var current: WeakReference<BlockOverlayActivity>? = null
+
+    fun dismissSleepOrLock() {
+      val activity = current?.get() ?: return
+      if (activity.mode != MODE_SLEEP && activity.mode != MODE_LOCK) {
+        return
+      }
+      activity.runOnUiThread {
+        if (!activity.isFinishing) {
+          activity.finish()
+        }
+      }
+    }
   }
 }

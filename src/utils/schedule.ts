@@ -3,27 +3,37 @@ export function parseClock(value: string): { hours: number; minutes: number } {
   return { hours, minutes };
 }
 
-export function nextOccurrenceMs(clock: string, fromMs = Date.now()): number {
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+export function clockOnDayMs(clock: string, fromMs = Date.now()): number {
   const { hours, minutes } = parseClock(clock);
   const date = new Date(fromMs);
   date.setHours(hours, minutes, 0, 0);
-
-  if (date.getTime() <= fromMs) {
-    date.setDate(date.getDate() + 1);
-  }
-
   return date.getTime();
 }
 
-export function nextSleepWindow(start: string, end: string, fromMs = Date.now()) {
-  const startMs = nextOccurrenceMs(start, fromMs);
-  let endMs = nextOccurrenceMs(end, fromMs);
+export function nextOccurrenceMs(clock: string, fromMs = Date.now()): number {
+  const today = clockOnDayMs(clock, fromMs);
+  return today > fromMs ? today : today + DAY_MS;
+}
 
-  if (endMs <= startMs) {
-    endMs = nextOccurrenceMs(end, startMs);
+export function nextSleepWindow(start: string, end: string, fromMs = Date.now()) {
+  const startToday = clockOnDayMs(start, fromMs);
+  const endToday = clockOnDayMs(end, fromMs);
+  const overnight = endToday <= startToday;
+
+  if (!overnight) {
+    if (fromMs < endToday) {
+      return { startMs: startToday, endMs: endToday };
+    }
+    return { startMs: startToday + DAY_MS, endMs: endToday + DAY_MS };
   }
 
-  return { startMs, endMs };
+  if (fromMs < endToday) {
+    return { startMs: startToday - DAY_MS, endMs: endToday };
+  }
+
+  return { startMs: startToday, endMs: endToday + DAY_MS };
 }
 
 export function formatClock(value: string): string {
