@@ -17,6 +17,7 @@ import android.widget.Toast
 import java.lang.ref.WeakReference
 
 class BlockOverlayActivity : Activity() {
+  @Volatile
   private var mode: String = MODE_APP
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +60,8 @@ class BlockOverlayActivity : Activity() {
 
     if (mode == MODE_SLEEP) {
       addSleepSkipControls(layout)
+    } else if (mode == MODE_LOCK) {
+      addLockDismissControls(layout)
     }
 
     setContentView(layout)
@@ -149,6 +152,22 @@ class BlockOverlayActivity : Activity() {
     layout.addView(skipForm)
   }
 
+  private fun addLockDismissControls(layout: LinearLayout) {
+    val unlockWrap = LinearLayout(this).apply {
+      setPadding(0, dp(32), 0, 0)
+    }
+    unlockWrap.addView(
+      actionButton("Unlock", filled = true) {
+        finish()
+      },
+      LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+      ),
+    )
+    layout.addView(unlockWrap)
+  }
+
   private fun labeledField(label: String, field: EditText): LinearLayout {
     return LinearLayout(this).apply {
       orientation = LinearLayout.VERTICAL
@@ -225,9 +244,10 @@ class BlockOverlayActivity : Activity() {
     @Volatile
     private var current: WeakReference<BlockOverlayActivity>? = null
 
-    fun dismissSleepOrLock() {
+    fun dismissSleepOverlay() {
       val activity = current?.get() ?: return
-      if (activity.mode != MODE_SLEEP && activity.mode != MODE_LOCK) {
+      val currentMode = activity.mode
+      if (currentMode != MODE_SLEEP) {
         return
       }
       activity.runOnUiThread {

@@ -37,7 +37,7 @@ object MonitorController {
   }
 
   fun dismissSleepOverlay() {
-    BlockOverlayActivity.dismissSleepOrLock()
+    BlockOverlayActivity.dismissSleepOverlay()
   }
 
   fun showOverlay(context: Context, mode: String, title: String, message: String) {
