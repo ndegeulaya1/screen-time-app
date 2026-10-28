@@ -55,8 +55,8 @@ object DeviceLockHelper {
     MonitorController.showOverlay(
       context,
       BlockOverlayActivity.MODE_LOCK,
-      "Time to sleep",
-      "Your scheduled sleep time has started.",
+      "Device locked",
+      "This device has been locked.",
     )
 
     val lockNow = tryLockNow(context)

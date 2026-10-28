@@ -60,6 +60,8 @@ class BlockOverlayActivity : Activity() {
 
     if (mode == MODE_SLEEP) {
       addSleepSkipControls(layout)
+    } else if (mode == MODE_LOCK) {
+      addLockDismissControls(layout)
     }
 
     setContentView(layout)
@@ -148,6 +150,22 @@ class BlockOverlayActivity : Activity() {
     skipForm.addView(sleepWrap)
 
     layout.addView(skipForm)
+  }
+
+  private fun addLockDismissControls(layout: LinearLayout) {
+    val unlockWrap = LinearLayout(this).apply {
+      setPadding(0, dp(32), 0, 0)
+    }
+    unlockWrap.addView(
+      actionButton("Unlock", filled = true) {
+        finish()
+      },
+      LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+      ),
+    )
+    layout.addView(unlockWrap)
   }
 
   private fun labeledField(label: String, field: EditText): LinearLayout {
