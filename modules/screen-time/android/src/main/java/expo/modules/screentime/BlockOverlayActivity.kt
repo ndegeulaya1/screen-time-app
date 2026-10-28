@@ -17,6 +17,7 @@ import android.widget.Toast
 import java.lang.ref.WeakReference
 
 class BlockOverlayActivity : Activity() {
+  @Volatile
   private var mode: String = MODE_APP
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -225,9 +226,10 @@ class BlockOverlayActivity : Activity() {
     @Volatile
     private var current: WeakReference<BlockOverlayActivity>? = null
 
-    fun dismissSleepOrLock() {
+    fun dismissSleepOverlay() {
       val activity = current?.get() ?: return
-      if (activity.mode != MODE_SLEEP && activity.mode != MODE_LOCK) {
+      val currentMode = activity.mode
+      if (currentMode != MODE_SLEEP) {
         return
       }
       activity.runOnUiThread {
